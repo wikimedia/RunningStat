@@ -1,0 +1,30 @@
+{
+	"name": "wikimedia/running-stat",
+	"description": "PHP implementations of online statistical algorithms",
+	"license": "GPL-2.0+",
+	"homepage": "https://www.mediawiki.org/wiki/RunningStat",
+	"authors": [
+		{
+			"name": "Ori Livneh",
+			"email": "ori@wikimedia.org"
+		}
+	],
+	"autoload": {
+		"classmap": ["src/"]
+	},
+	"require": {
+		"php": ">=5.3.3"
+	},
+	"require-dev": {
+		"jakub-onderka/php-parallel-lint": "^0.9.0.0",
+		"phpunit/phpunit": "4.6.*",
+		"mediawiki/mediawiki-codesniffer": "^0.5.0.0"
+	},
+	"scripts": {
+		"test": [
+			"parallel-lint . --exclude vendor",
+			"phpunit $PHPUNIT_ARGS",
+			"phpcs -p -s"
+		]
+	}
+}
