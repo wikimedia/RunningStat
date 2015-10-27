@@ -51,7 +51,7 @@ define( 'RUNNINGSTAT_NEGATIVE_INF', -INF );
  * English Wikipedia articles "Variance", "Algorithms for calculating
  * variance", and "Standard deviation".
  */
-class RunningStat implements \Countable {
+class RunningStat {
 
 	/** @var int Number of samples. **/
 	public $n = 0;
@@ -70,9 +70,9 @@ class RunningStat implements \Countable {
 
 	/**
 	 * Count the number of accumulated values.
-	 * @return int Number of values
+	 * @return int
 	 */
-	public function count() {
+	public function getCount() {
 		return $this->n;
 	}
 
@@ -100,7 +100,7 @@ class RunningStat implements \Countable {
 	 * The arithmetic mean is the sum of all measurements divided by the number
 	 * of observations in the data set.
 	 *
-	 * @return float Mean
+	 * @return float
 	 */
 	public function getMean() {
 		return $this->m1;

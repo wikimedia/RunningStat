@@ -25,9 +25,6 @@
 
 use RunningStat\RunningStat;
 
-/**
- * @covers RunningStat\RunningStat
- */
 class RunningStatTest extends \PHPUnit_Framework_TestCase {
 
 	public $points = array(
@@ -40,11 +37,6 @@ class RunningStatTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * Verify that the statistical moments and extrema computed by RunningStat
 	 * match expected values.
-	 * @covers RunningStat::push
-	 * @covers RunningStat::count
-	 * @covers RunningStat::getMean
-	 * @covers RunningStat::getVariance
-	 * @covers RunningStat::getStdDev
 	 */
 	public function testRunningStatAccuracy() {
 		$rstat = new RunningStat();
@@ -55,10 +47,10 @@ class RunningStatTest extends \PHPUnit_Framework_TestCase {
 		$mean = array_sum( $this->points ) / count( $this->points );
 		$variance = array_sum( array_map( function ( $x ) use ( $mean ) {
 			return pow( $mean - $x, 2 );
-		}, $this->points ) ) / ( count( $rstat ) - 1 );
+		}, $this->points ) ) / ( $rstat->getCount() - 1 );
 		$stddev = sqrt( $variance );
 
-		$this->assertEquals( count( $rstat ), count( $this->points ) );
+		$this->assertEquals( $rstat->getCount(), count( $this->points ) );
 		$this->assertEquals( $rstat->min, min( $this->points ) );
 		$this->assertEquals( $rstat->max, max( $this->points ) );
 		$this->assertEquals( $rstat->getMean(), $mean );
@@ -70,8 +62,6 @@ class RunningStatTest extends \PHPUnit_Framework_TestCase {
 	 * When one RunningStat instance is merged into another, the state of the
 	 * target RunningInstance should have the state that it would have had if
 	 * all the data had been accumulated by it alone.
-	 * @covers RunningStat::merge
-	 * @covers RunningStat::count
 	 */
 	public function testRunningStatMerge() {
 		$expected = new RunningStat();
@@ -98,7 +88,7 @@ class RunningStatTest extends \PHPUnit_Framework_TestCase {
 		// Merge the second RunningStat object into the first
 		$first->merge( $second );
 
-		$this->assertEquals( count( $first ), count( $this->points ) );
+		$this->assertEquals( $first->getCount(), count( $this->points ) );
 		$this->assertEquals( $first, $expected );
 	}
 }
