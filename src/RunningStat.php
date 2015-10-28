@@ -80,7 +80,7 @@ class RunningStat {
 	 * Add a number to the data set.
 	 * @param int|float $x Value to add
 	 */
-	public function push( $x ) {
+	public function addObservation( $x ) {
 		$x = (float) $x;
 
 		$this->min = min( $this->min, $x );

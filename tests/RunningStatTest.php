@@ -41,7 +41,7 @@ class RunningStatTest extends \PHPUnit_Framework_TestCase {
 	public function testRunningStatAccuracy() {
 		$rstat = new RunningStat();
 		foreach ( $this->points as $point ) {
-			$rstat->push( $point );
+			$rstat->addObservation( $point );
 		}
 
 		$mean = array_sum( $this->points ) / count( $this->points );
@@ -67,7 +67,7 @@ class RunningStatTest extends \PHPUnit_Framework_TestCase {
 		$expected = new RunningStat();
 
 		foreach ( $this->points as $point ) {
-			$expected->push( $point );
+			$expected->addObservation( $point );
 		}
 
 		// Split the data into two sets
@@ -76,13 +76,13 @@ class RunningStatTest extends \PHPUnit_Framework_TestCase {
 		// Accumulate the first half into one RunningStat object
 		$first = new RunningStat();
 		foreach ( $sets[0] as $point ) {
-			$first->push( $point );
+			$first->addObservation( $point );
 		}
 
 		// Accumulate the second half into another RunningStat object
 		$second = new RunningStat();
 		foreach ( $sets[1] as $point ) {
-			$second->push( $point );
+			$second->addObservation( $point );
 		}
 
 		// Merge the second RunningStat object into the first

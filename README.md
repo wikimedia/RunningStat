@@ -35,7 +35,7 @@ foreach ( array(
   86.1322, 53.2124, 16.2046, 73.5130, 10.4209,
   42.7299, 49.3330, 47.0215, 34.9950, 18.2914,
 ) as $sample ) {
-  $rstat->push( $sample );
+  $rstat->addObservation( $sample );
 }
 
 
