@@ -192,7 +192,6 @@ class PSquare {
 			} else {
 				return $this->heights[floor( $i )];
 			}
-			return $result;
 		}
 
 		return $this->heights[2];
