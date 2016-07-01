@@ -25,6 +25,9 @@
 
 use RunningStat\RunningStat;
 
+/**
+ * @covers RunningStat\RunningStat
+ */
 class RunningStatTest extends \PHPUnit_Framework_TestCase {
 
 	public $points = array(
@@ -59,13 +62,26 @@ class RunningStatTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * @covers RunningStat\RunningStat::getVariance
+	 */
+	public function testGetVariance() {
+		$rstat = new RunningStat();
+		$this->assertTrue( is_nan( $rstat->getVariance() ), 'Empty set' );
+
+		$rstat = new RunningStat();
+		$rstat->addObservation( 7 );
+		$this->assertEquals( $rstat->getVariance(), 0.0, 'One value' );
+	}
+
+	/**
 	 * When one RunningStat instance is merged into another, the state of the
 	 * target RunningInstance should have the state that it would have had if
 	 * all the data had been accumulated by it alone.
+	 *
+	 * @covers RunningStat\RunningStat::merge
 	 */
-	public function testRunningStatMerge() {
+	public function testMergeTwo() {
 		$expected = new RunningStat();
-
 		foreach ( $this->points as $point ) {
 			$expected->addObservation( $point );
 		}
@@ -89,6 +105,44 @@ class RunningStatTest extends \PHPUnit_Framework_TestCase {
 		$first->merge( $second );
 
 		$this->assertEquals( $first->getCount(), count( $this->points ) );
+		$this->assertEquals( $first, $expected );
+	}
+
+	/**
+	 * @covers RunningStat\RunningStat::merge
+	 */
+	public function testMergeOne() {
+		$expected = new RunningStat();
+		foreach ( $this->points as $point ) {
+			$expected->addObservation( $point );
+		}
+
+		// Empty target
+		$first = new RunningStat();
+
+		$second = new RunningStat();
+		foreach ( $this->points as $point ) {
+			$second->addObservation( $point );
+		}
+
+		$first->merge( $second );
+
+		$this->assertEquals( $first->getCount(), count( $this->points ) );
+		$this->assertEquals( $first, $expected );
+	}
+
+	/**
+	 * @covers RunningStat\RunningStat::merge
+	 */
+	public function testMergeEmpty() {
+		$expected = new RunningStat();
+
+		// Empty target and subject
+		$first = new RunningStat();
+		$second = new RunningStat();
+		$first->merge( $second );
+
+		$this->assertEquals( $first->getCount(), 0 );
 		$this->assertEquals( $first, $expected );
 	}
 }
