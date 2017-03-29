@@ -26,7 +26,7 @@
 namespace RunningStat;
 
 // Needed due to PHP non-bug <https://bugs.php.net/bug.php?id=49828>.
-define( 'RUNNINGSTAT_NEGATIVE_INF', -INF );
+define( 'RUNNINGSTAT_NEGATIVE_INF', -INF ); // @codeCoverageIgnore
 
 /**
  * Represents a running summary of a stream of numbers.
