@@ -39,13 +39,13 @@ class PSquare {
 	private $p;
 
 	/** @var float[] Height of each marker. **/
-	private $heights = array();
+	private $heights = [];
 
 	/** @var int[] Position of each marker. **/
-	private $positions = array();
+	private $positions = [];
 
 	/** @var float[] Desired position of each marker. **/
-	private $desired = array();
+	private $desired = [];
 
 	/** @var int Number of observations. **/
 	private $numObservations = 0;
@@ -57,9 +57,9 @@ class PSquare {
 	 */
 	public function __construct( $p = 0.5 ) {
 		$this->p = $p;
-		$this->positions = array( 0, 1, 2, 3, 4 );
-		$this->desired = array( 0, ( 2 * $p ), ( 4 * $p ), 2 + ( 2 * $p ), 4 );
-		$this->increments = array( 0, ( $p / 2 ), $p, ( ( 1 + $p ) / 2 ), 1 );
+		$this->positions = [ 0, 1, 2, 3, 4 ];
+		$this->desired = [ 0, ( 2 * $p ), ( 4 * $p ), 2 + ( 2 * $p ), 4 ];
+		$this->increments = [ 0, ( $p / 2 ), $p, ( ( 1 + $p ) / 2 ), 1 ];
 	}
 
 	/**

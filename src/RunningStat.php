@@ -81,7 +81,7 @@ class RunningStat {
 	 * @param int|float $x Value to add
 	 */
 	public function addObservation( $x ) {
-		$x = (float) $x;
+		$x = (float)$x;
 
 		$this->min = min( $this->min, $x );
 		$this->max = max( $this->max, $x );
