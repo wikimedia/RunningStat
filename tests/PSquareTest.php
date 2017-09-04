@@ -24,7 +24,7 @@
 use Wikimedia\PSquare;
 
 /**
- * @covers RunningStat\PSquare
+ * @covers Wikimedia\PSquare
  */
 class PSquareTest extends \PHPUnit_Framework_TestCase {
 
