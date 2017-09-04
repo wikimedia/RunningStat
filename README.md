@@ -4,7 +4,7 @@ RunningStat
 RunningStat computes the central tendency, shape, and extrema of a set of
 points online, in constant space. It uses a neat one-pass algorithm for
 calculating variance, described here:
-	<en.wikipedia.org/wiki/Algorithms_for_calculating_variance#On-line_algorithm>
+	<https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance#On-line_algorithm>
 
 This particular implementation adapts a sample C++ implementation by John D.
 Cook to PHP. See <http://www.johndcook.com/standard_deviation.html> and
@@ -26,7 +26,7 @@ Usage
 Here is how you use it:
 
 <pre lang="php">
-use RunningStat\RunningStat;
+use Wikimedia\RunningStat;
 
 $rstat = new RunningStat();
 foreach ( array(

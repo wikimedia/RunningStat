@@ -23,10 +23,10 @@
  * @author Ori Livneh <ori@wikimedia.org>
  */
 
-use RunningStat\RunningStat;
+use Wikimedia\RunningStat;
 
 /**
- * @covers RunningStat\RunningStat
+ * @covers Wikimedia\RunningStat
  */
 class RunningStatTest extends \PHPUnit_Framework_TestCase {
 
@@ -62,7 +62,7 @@ class RunningStatTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @covers RunningStat\RunningStat::getVariance
+	 * @covers Wikimedia\RunningStat::getVariance
 	 */
 	public function testGetVariance() {
 		$rstat = new RunningStat();
@@ -78,7 +78,7 @@ class RunningStatTest extends \PHPUnit_Framework_TestCase {
 	 * target RunningInstance should have the state that it would have had if
 	 * all the data had been accumulated by it alone.
 	 *
-	 * @covers RunningStat\RunningStat::merge
+	 * @covers Wikimedia\RunningStat::merge
 	 */
 	public function testMergeTwo() {
 		$expected = new RunningStat();
@@ -109,7 +109,7 @@ class RunningStatTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @covers RunningStat\RunningStat::merge
+	 * @covers Wikimedia\RunningStat::merge
 	 */
 	public function testMergeOne() {
 		$expected = new RunningStat();
@@ -132,7 +132,7 @@ class RunningStatTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @covers RunningStat\RunningStat::merge
+	 * @covers Wikimedia\RunningStat::merge
 	 */
 	public function testMergeEmpty() {
 		$expected = new RunningStat();

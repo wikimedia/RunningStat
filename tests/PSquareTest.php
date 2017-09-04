@@ -21,7 +21,7 @@
  * @author Ori Livneh <ori@wikimedia.org>
  */
 
-use RunningStat\PSquare;
+use Wikimedia\PSquare;
 
 /**
  * @covers RunningStat\PSquare

@@ -27,7 +27,7 @@
  * @author Ori Livneh <ori@wikimedia.org>
  */
 
-namespace RunningStat;
+namespace Wikimedia;
 
 /**
  * Represents a running, online estimate of a p-quantile for a series

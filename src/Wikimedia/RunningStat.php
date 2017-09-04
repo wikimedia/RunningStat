@@ -23,7 +23,7 @@
  * @author Ori Livneh <ori@wikimedia.org>
  */
 
-namespace RunningStat;
+namespace Wikimedia;
 
 // Needed due to PHP non-bug <https://bugs.php.net/bug.php?id=49828>.
 define( 'RUNNINGSTAT_NEGATIVE_INF', -INF ); // @codeCoverageIgnore
