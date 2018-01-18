@@ -1,7 +1,7 @@
 {
 	"name": "wikimedia/running-stat",
 	"description": "PHP implementations of online statistical algorithms",
-	"license": "GPL-2.0+",
+	"license": "GPL-2.0-or-later",
 	"homepage": "https://www.mediawiki.org/wiki/RunningStat",
 	"authors": [
 		{
