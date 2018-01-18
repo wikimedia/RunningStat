@@ -1,5 +1,5 @@
 <?php
 namespace RunningStat;
 
-class RunningStat extends \Wikimedia\PSquare {
+class RunningStat extends \Wikimedia\RunningStat {
 }
