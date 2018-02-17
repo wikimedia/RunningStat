@@ -147,7 +147,7 @@ class RunningStat {
 	 * This instance then has the state it would have had if all the data had
 	 * been accumulated by it alone.
 	 *
-	 * @param RunningStat RunningStat instance to merge into this one
+	 * @param RunningStat $other RunningStat instance to merge into this one
 	 */
 	public function merge( RunningStat $other ) {
 		// If the other RunningStat is empty, there's nothing to do.

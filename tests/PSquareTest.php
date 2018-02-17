@@ -26,7 +26,7 @@ use Wikimedia\PSquare;
 /**
  * @covers Wikimedia\PSquare
  */
-class PSquareTest extends \PHPUnit_Framework_TestCase {
+class PSquareTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * Test that the PSquare class implements the P-square algorithm
@@ -131,8 +131,8 @@ class PSquareTest extends \PHPUnit_Framework_TestCase {
 		$i = $p * count( $values );
 		$j = floor( $i );
 		return $i === $j
-			? $result = $values[$i - 1] + $values[$i] / 2
-			: $result = $values[$j];
+			? $values[$i - 1] + $values[$i] / 2
+			: $values[$j];
 	}
 
 	/**

@@ -28,7 +28,7 @@ use Wikimedia\RunningStat;
 /**
  * @covers Wikimedia\RunningStat
  */
-class RunningStatTest extends \PHPUnit_Framework_TestCase {
+class RunningStatTest extends \PHPUnit\Framework\TestCase {
 
 	public $points = [
 		49.7168, 74.3804,  7.0115, 96.5769, 34.9458,
