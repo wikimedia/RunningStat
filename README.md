@@ -54,4 +54,4 @@ printf(
 
 License
 -------
-GPL-2.0+
+GPL-2.0-or-later
