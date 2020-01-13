@@ -22,6 +22,7 @@
  */
 
 use Wikimedia\PSquare;
+use Wikimedia\TestingAccessWrapper;
 
 /**
  * @covers Wikimedia\PSquare
@@ -38,6 +39,7 @@ class PSquareTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public function testPSquare() {
 		$ps = new PSquare( 0.5 );
+		$ps = TestingAccessWrapper::newFromObject( $ps );
 
 		// Push the initial observations
 		$ps->addObservation( 0.02 );
@@ -47,79 +49,79 @@ class PSquareTest extends \PHPUnit\Framework\TestCase {
 		$ps->addObservation( 3.39 );
 
 		$ps->addObservation( 22.37 );
-		$this->assertAttributeEquals( [ 0, 1, 2, 3, 5 ], 'positions', $ps );
-		$this->assertAttributeEquals( [ 0, 1.25, 2.5, 3.75, 5 ], 'desired', $ps, '', 0.1 );
-		$this->assertAttributeEquals( [ 0.02, 0.15, 0.74, 0.83, 22.37 ], 'heights', $ps, '', 0.1 );
+		$this->assertEquals( [ 0, 1, 2, 3, 5 ], $ps->positions );
+		$this->assertEqualsWithDelta( [ 0, 1.25, 2.5, 3.75, 5 ], $ps->desired, 0.1 );
+		$this->assertEqualsWithDelta( [ 0.02, 0.15, 0.74, 0.83, 22.37 ], $ps->heights, 0.1 );
 
 		$ps->addObservation( 10.15 );
-		$this->assertAttributeEquals( [ 0, 1, 2, 4, 6 ], 'positions', $ps );
-		$this->assertAttributeEquals( [ 0, 1.5, 3, 4.5, 6 ], 'desired', $ps, '', 0.1 );
-		$this->assertAttributeEquals( [ 0.02, 0.15, 0.74, 4.47, 22.37 ], 'heights', $ps, '', 0.1 );
+		$this->assertEquals( [ 0, 1, 2, 4, 6 ], $ps->positions );
+		$this->assertEqualsWithDelta( [ 0, 1.5, 3, 4.5, 6 ], $ps->desired, 0.1 );
+		$this->assertEqualsWithDelta( [ 0.02, 0.15, 0.74, 4.47, 22.37 ], $ps->heights, 0.1 );
 
 		$ps->addObservation( 15.43 );
-		$this->assertAttributeEquals( [ 0, 1, 3, 5, 7 ], 'positions', $ps );
-		$this->assertAttributeEquals( [ 0, 1.75, 3.5, 5.25, 7 ], 'desired', $ps, '', 0.1 );
-		$this->assertAttributeEquals( [ 0.02, 0.15, 2.18, 8.6, 22.37 ], 'heights', $ps, '', 0.1 );
+		$this->assertEquals( [ 0, 1, 3, 5, 7 ], $ps->positions );
+		$this->assertEqualsWithDelta( [ 0, 1.75, 3.5, 5.25, 7 ], $ps->desired, 0.1 );
+		$this->assertEqualsWithDelta( [ 0.02, 0.15, 2.18, 8.6, 22.37 ], $ps->heights, 0.1 );
 
 		$ps->addObservation( 38.62 );
-		$this->assertAttributeEquals( [ 0, 2, 4, 6, 8 ], 'positions', $ps );
-		$this->assertAttributeEquals( [ 0, 2, 4, 6, 8 ], 'desired', $ps, '', 0.1 );
-		$this->assertAttributeEquals( [ 0.02, 0.87, 4.75, 15.52, 38.62 ], 'heights', $ps, '', 0.1 );
+		$this->assertEquals( [ 0, 2, 4, 6, 8 ], $ps->positions );
+		$this->assertEqualsWithDelta( [ 0, 2, 4, 6, 8 ], $ps->desired, 0.1 );
+		$this->assertEqualsWithDelta( [ 0.02, 0.87, 4.75, 15.52, 38.62 ], $ps->heights, 0.1 );
 
 		$ps->addObservation( 15.92 );
-		$this->assertAttributeEquals( [ 0, 2, 4, 6, 9 ], 'positions', $ps );
-		$this->assertAttributeEquals( [ 0, 2.25, 4.5, 6.75, 9 ], 'desired', $ps, '', 0.1 );
-		$this->assertAttributeEquals( [ 0.02, 0.87, 4.75, 15.52, 38.62 ], 'heights', $ps, '', 0.1 );
+		$this->assertEquals( [ 0, 2, 4, 6, 9 ], $ps->positions );
+		$this->assertEqualsWithDelta( [ 0, 2.25, 4.5, 6.75, 9 ], $ps->desired, 0.1 );
+		$this->assertEqualsWithDelta( [ 0.02, 0.87, 4.75, 15.52, 38.62 ], $ps->heights, 0.1 );
 
 		$ps->addObservation( 34.6 );
-		$this->assertAttributeEquals( [ 0, 2, 5, 7, 10 ], 'positions', $ps );
-		$this->assertAttributeEquals( [ 0, 2.5, 5, 7.5, 10 ], 'desired', $ps, '', 0.1 );
-		$this->assertAttributeEquals( [ 0.02, 0.87, 9.28, 21.58, 38.62 ], 'heights', $ps, '', 0.1 );
+		$this->assertEquals( [ 0, 2, 5, 7, 10 ], $ps->positions );
+		$this->assertEqualsWithDelta( [ 0, 2.5, 5, 7.5, 10 ], $ps->desired, 0.1 );
+		$this->assertEqualsWithDelta( [ 0.02, 0.87, 9.28, 21.58, 38.62 ], $ps->heights, 0.1 );
 
 		$ps->addObservation( 10.28 );
-		$this->assertAttributeEquals( [ 0, 2, 5, 8, 11 ], 'positions', $ps );
-		$this->assertAttributeEquals( [ 0, 2.75, 5.5, 8.25, 11 ], 'desired', $ps, '', 0.1 );
-		$this->assertAttributeEquals( [ 0.02, 0.87, 9.28, 21.58, 38.62 ], 'heights', $ps, '', 0.1 );
+		$this->assertEquals( [ 0, 2, 5, 8, 11 ], $ps->positions );
+		$this->assertEqualsWithDelta( [ 0, 2.75, 5.5, 8.25, 11 ], $ps->desired, 0.1 );
+		$this->assertEqualsWithDelta( [ 0.02, 0.87, 9.28, 21.58, 38.62 ], $ps->heights, 0.1 );
 
 		$ps->addObservation( 1.47 );
-		$this->assertAttributeEquals( [ 0, 3, 6, 9, 12 ], 'positions', $ps );
-		$this->assertAttributeEquals( [ 0, 3, 6, 9, 12 ], 'desired', $ps, '', 0.1 );
-		$this->assertAttributeEquals( [ 0.02, 2.14, 9.28, 21.58, 38.62 ], 'heights', $ps, '', 0.1 );
+		$this->assertEquals( [ 0, 3, 6, 9, 12 ], $ps->positions );
+		$this->assertEqualsWithDelta( [ 0, 3, 6, 9, 12 ], $ps->desired, 0.1 );
+		$this->assertEqualsWithDelta( [ 0.02, 2.14, 9.28, 21.58, 38.62 ], $ps->heights, 0.1 );
 
 		$ps->addObservation( 0.4 );
-		$this->assertAttributeEquals( [ 0, 4, 7, 10, 13 ], 'positions', $ps );
-		$this->assertAttributeEquals( [ 0, 3.25, 6.5, 9.75, 13 ], 'desired', $ps, '', 0.1 );
-		$this->assertAttributeEquals( [ 0.02, 2.14, 9.28, 21.58, 38.62 ], 'heights', $ps, '', 0.1 );
+		$this->assertEquals( [ 0, 4, 7, 10, 13 ], $ps->positions );
+		$this->assertEqualsWithDelta( [ 0, 3.25, 6.5, 9.75, 13 ], $ps->desired, 0.1 );
+		$this->assertEqualsWithDelta( [ 0.02, 2.14, 9.28, 21.58, 38.62 ], $ps->heights, 0.1 );
 
 		$ps->addObservation( 0.05 );
-		$this->assertAttributeEquals( [ 0, 4, 7, 11, 14 ], 'positions', $ps );
-		$this->assertAttributeEquals( [ 0, 3.5, 7, 10.5, 14 ], 'desired', $ps, '', 0.1 );
-		$this->assertAttributeEquals( [ 0.02, 0.74, 6.3, 21.58, 38.62 ], 'heights', $ps, '', 0.1 );
+		$this->assertEquals( [ 0, 4, 7, 11, 14 ], $ps->positions );
+		$this->assertEqualsWithDelta( [ 0, 3.5, 7, 10.5, 14 ], $ps->desired, 0.1 );
+		$this->assertEqualsWithDelta( [ 0.02, 0.74, 6.3, 21.58, 38.62 ], $ps->heights, 0.1 );
 
 		$ps->addObservation( 11.39 );
-		$this->assertAttributeEquals( [ 0, 4, 7, 12, 15 ], 'positions', $ps );
-		$this->assertAttributeEquals( [ 0, 3.75, 7.5, 11.25, 15 ], 'desired', $ps, '', 0.1 );
-		$this->assertAttributeEquals( [ 0.02, 0.74, 6.3, 21.58, 38.62 ], 'heights', $ps, '', 0.1 );
+		$this->assertEquals( [ 0, 4, 7, 12, 15 ], $ps->positions );
+		$this->assertEqualsWithDelta( [ 0, 3.75, 7.5, 11.25, 15 ], $ps->desired, 0.1 );
+		$this->assertEqualsWithDelta( [ 0.02, 0.74, 6.3, 21.58, 38.62 ], $ps->heights, 0.1 );
 
 		$ps->addObservation( 0.27 );
-		$this->assertAttributeEquals( [ 0, 4, 8, 12, 16 ], 'positions', $ps );
-		$this->assertAttributeEquals( [ 0, 4, 8, 12, 16 ], 'desired', $ps, '', 0.1 );
-		$this->assertAttributeEquals( [ 0.02, 0.59, 6.3, 17.22, 38.62 ], 'heights', $ps, '', 0.1 );
+		$this->assertEquals( [ 0, 4, 8, 12, 16 ], $ps->positions );
+		$this->assertEqualsWithDelta( [ 0, 4, 8, 12, 16 ], $ps->desired, 0.1 );
+		$this->assertEqualsWithDelta( [ 0.02, 0.59, 6.3, 17.22, 38.62 ], $ps->heights, 0.1 );
 
 		$ps->addObservation( 0.42 );
-		$this->assertAttributeEquals( [ 0, 5, 9, 13, 17 ], 'positions', $ps );
-		$this->assertAttributeEquals( [ 0, 4.25, 8.5, 12.75, 17 ], 'desired', $ps, '', 0.1 );
-		$this->assertAttributeEquals( [ 0.02, 0.59, 6.3, 17.22, 38.62 ], 'heights', $ps, '', 0.1 );
+		$this->assertEquals( [ 0, 5, 9, 13, 17 ], $ps->positions );
+		$this->assertEqualsWithDelta( [ 0, 4.25, 8.5, 12.75, 17 ], $ps->desired, 0.1 );
+		$this->assertEqualsWithDelta( [ 0.02, 0.59, 6.3, 17.22, 38.62 ], $ps->heights, 0.1 );
 
 		$ps->addObservation( 0.09 );
-		$this->assertAttributeEquals( [ 0, 5, 9, 14, 18 ], 'positions', $ps );
-		$this->assertAttributeEquals( [ 0, 4.5, 9, 13.5, 18 ], 'desired', $ps, '', 0.1 );
-		$this->assertAttributeEquals( [ 0.02, 0.5, 4.44, 17.22, 38.62 ], 'heights', $ps, '', 0.1 );
+		$this->assertEquals( [ 0, 5, 9, 14, 18 ], $ps->positions );
+		$this->assertEqualsWithDelta( [ 0, 4.5, 9, 13.5, 18 ], $ps->desired, 0.1 );
+		$this->assertEqualsWithDelta( [ 0.02, 0.5, 4.44, 17.22, 38.62 ], $ps->heights, 0.1 );
 
 		$ps->addObservation( 11.37 );
-		$this->assertAttributeEquals( [ 0, 5, 9, 15, 19 ], 'positions', $ps );
-		$this->assertAttributeEquals( [ 0, 4.75, 9.5, 14.25, 19 ], 'desired', $ps, '', 0.1 );
-		$this->assertAttributeEquals( [ 0.02, 0.5, 4.44, 17.22, 38.62 ], 'heights', $ps, '', 0.1 );
+		$this->assertEquals( [ 0, 5, 9, 15, 19 ], $ps->positions );
+		$this->assertEqualsWithDelta( [ 0, 4.75, 9.5, 14.25, 19 ], $ps->desired, 0.1 );
+		$this->assertEqualsWithDelta( [ 0.02, 0.5, 4.44, 17.22, 38.62 ], $ps->heights, 0.1 );
 
 		$this->assertEquals( 4.4406347, $ps->getValue(), '', 0.1 );
 
