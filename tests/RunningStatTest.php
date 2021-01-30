@@ -53,7 +53,7 @@ class RunningStatTest extends \PHPUnit\Framework\TestCase {
 		}, $this->points ) ) / ( $rstat->getCount() - 1 );
 		$stddev = sqrt( $variance );
 
-		$this->assertEquals( $rstat->getCount(), count( $this->points ) );
+		$this->assertCount( $rstat->getCount(), $this->points );
 		$this->assertEquals( $rstat->min, min( $this->points ) );
 		$this->assertEquals( $rstat->max, max( $this->points ) );
 		$this->assertEquals( $rstat->getMean(), $mean );
@@ -104,7 +104,7 @@ class RunningStatTest extends \PHPUnit\Framework\TestCase {
 		// Merge the second RunningStat object into the first
 		$first->merge( $second );
 
-		$this->assertEquals( $first->getCount(), count( $this->points ) );
+		$this->assertCount( $first->getCount(), $this->points );
 		$this->assertEquals( $first, $expected );
 	}
 
@@ -127,7 +127,7 @@ class RunningStatTest extends \PHPUnit\Framework\TestCase {
 
 		$first->merge( $second );
 
-		$this->assertEquals( $first->getCount(), count( $this->points ) );
+		$this->assertCount( $first->getCount(), $this->points );
 		$this->assertEquals( $first, $expected );
 	}
 
