@@ -25,9 +25,6 @@
 
 namespace Wikimedia;
 
-// Needed due to PHP non-bug <https://bugs.php.net/bug.php?id=49828>.
-define( 'RUNNINGSTAT_NEGATIVE_INF', -INF ); // @codeCoverageIgnore
-
 /**
  * Represents a running summary of a stream of numbers.
  *
@@ -66,7 +63,7 @@ class RunningStat {
 	public $min = INF;
 
 	/** @var float The greatest value in the set. */
-	public $max = RUNNINGSTAT_NEGATIVE_INF;
+	public $max = -INF;
 
 	/**
 	 * Count the number of accumulated values.
