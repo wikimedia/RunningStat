@@ -48,7 +48,7 @@ class RunningStatTest extends \PHPUnit\Framework\TestCase {
 		}
 
 		$mean = array_sum( $this->points ) / count( $this->points );
-		$variance = array_sum( array_map( function ( $x ) use ( $mean ) {
+		$variance = array_sum( array_map( static function ( $x ) use ( $mean ) {
 			return pow( $mean - $x, 2 );
 		}, $this->points ) ) / ( $rstat->getCount() - 1 );
 		$stddev = sqrt( $variance );
