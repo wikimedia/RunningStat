@@ -70,7 +70,7 @@ class RunningStatTest extends \PHPUnit\Framework\TestCase {
 
 		$rstat = new RunningStat();
 		$rstat->addObservation( 7 );
-		$this->assertEquals( $rstat->getVariance(), 0.0, 'One value' );
+		$this->assertSame( 0.0, $rstat->getVariance(), 'One value' );
 	}
 
 	/**
@@ -142,7 +142,7 @@ class RunningStatTest extends \PHPUnit\Framework\TestCase {
 		$second = new RunningStat();
 		$first->merge( $second );
 
-		$this->assertEquals( $first->getCount(), 0 );
+		$this->assertSame( 0, $first->getCount() );
 		$this->assertEquals( $first, $expected );
 	}
 }
