@@ -123,7 +123,7 @@ class PSquareTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEqualsWithDelta( [ 0, 4.75, 9.5, 14.25, 19 ], $ps->desired, 0.1 );
 		$this->assertEqualsWithDelta( [ 0.02, 0.5, 4.44, 17.22, 38.62 ], $ps->heights, 0.1 );
 
-		$this->assertEquals( 4.4406347, $ps->getValue(), '', 0.1 );
+		$this->assertEqualsWithDelta( 4.4406347, $ps->getValue(), 0.1 );
 
 		$this->assertEquals( 20, $ps->getCount() );
 	}
@@ -200,7 +200,7 @@ class PSquareTest extends \PHPUnit\Framework\TestCase {
 			$actual = $this->getPercentile( $p, $observations );
 			$estimate = $ps->getValue();
 			$acceptableDelta = $actual * 0.10;
-			$this->assertEquals( $actual, $estimate, '', $acceptableDelta );
+			$this->assertEqualsWithDelta( $actual, $estimate, $acceptableDelta );
 		}
 	}
 }

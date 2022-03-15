@@ -47,6 +47,9 @@ class PSquare {
 	/** @var float[] Desired position of each marker. */
 	private $desired = [];
 
+	/** @var float[] */
+	private $increments = [];
+
 	/** @var int Number of observations. */
 	private $numObservations = 0;
 
@@ -102,6 +105,7 @@ class PSquare {
 			}
 		}
 
+		// @phan-suppress-next-line PhanPossiblyUndeclaredVariable
 		for ( $i = $k + 1; $i < 5; $i++ ) {
 			$this->positions[$i]++;
 		}
