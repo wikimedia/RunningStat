@@ -105,7 +105,7 @@ class RunningStatTest extends \PHPUnit\Framework\TestCase {
 		$first->merge( $second );
 
 		$this->assertCount( $first->getCount(), $this->points );
-		$this->assertEquals( $first, $expected );
+		$this->assertEquals( $expected, $first );
 	}
 
 	/**
@@ -128,7 +128,7 @@ class RunningStatTest extends \PHPUnit\Framework\TestCase {
 		$first->merge( $second );
 
 		$this->assertCount( $first->getCount(), $this->points );
-		$this->assertEquals( $first, $expected );
+		$this->assertEquals( $expected, $first );
 	}
 
 	/**
@@ -143,6 +143,6 @@ class RunningStatTest extends \PHPUnit\Framework\TestCase {
 		$first->merge( $second );
 
 		$this->assertSame( 0, $first->getCount() );
-		$this->assertEquals( $first, $expected );
+		$this->assertEquals( $expected, $first );
 	}
 }
