@@ -1,13 +1,5 @@
 <?php
 /**
- * PSquare
- *
- * Represents a running, online estimate of a p-quantile for a series
- * of observations using the P-squared algorithm, as documented in
- * "The P-Square Algorithm for Dynamic Calculation of Percentiles and
- * Histograms without Storing Observations," Communications of the ACM,
- * October 1985 by R. Jain and I. Chlamtac.
- *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -32,30 +24,47 @@ namespace Wikimedia;
 /**
  * Represents a running, online estimate of a p-quantile for a series
  * of observations using the P-squared algorithm.
+ *
+ * The algorithm is from "The P-Square Algorithm for Dynamic Calculation of
+ * Percentiles and Histograms without Storing Observations," Communications of
+ * the ACM, October 1985 by R. Jain and I. Chlamtac.
  */
 class PSquare {
 
-	/** @var float Percentile to estimate. */
+	/**
+	 * Percentile to estimate.
+	 * @var float $p
+	 */
 	private $p;
 
-	/** @var float[] Height of each marker. */
+	/**
+	 * Height of each marker.
+	 * @var float[] $heights
+	 */
 	private $heights = [];
 
-	/** @var int[] Position of each marker. */
+	/**
+	 * Position of each marker.
+	 * @var int[] $positions
+	 */
 	private $positions = [];
 
-	/** @var float[] Desired position of each marker. */
+	/**
+	 * Desired position of each marker.
+	 * @var float[] $desired
+	 */
 	private $desired = [];
 
-	/** @var float[] */
+	/** @var float[] $increments */
 	private $increments = [];
 
-	/** @var int Number of observations. */
+	/**
+	 * Number of observations.
+	 * @var int $numObservations
+	 */
 	private $numObservations = 0;
 
 	/**
-	 * Constructor.
-	 *
 	 * @param float $p the percentile (defaults to 0.5, or median).
 	 */
 	public function __construct( $p = 0.5 ) {

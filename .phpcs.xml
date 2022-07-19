@@ -2,6 +2,9 @@
 <ruleset>
 	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
 		<exclude name="MediaWiki.Commenting.PropertyDocumentation.MissingDocumentationPublic" />
+		<!-- RedundantVarName is for MW core only, incompatible with Doxygen (T278474). -->
+		<exclude name="MediaWiki.Commenting.RedundantVarName.Found" />
+		<exclude name="MediaWiki.Commenting.PropertyDocumentation.MissingVar" />
 	</rule>
 	<file>.</file>
 	<arg name="encoding" value="UTF-8"/>

@@ -1,9 +1,5 @@
 <?php
 /**
- * RunningStat
- *
- * Compute running mean, variance, and extrema of a stream of numbers.
- *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -26,7 +22,7 @@
 namespace Wikimedia;
 
 /**
- * Represents a running summary of a stream of numbers.
+ * Compute running mean, variance, and extrema of a stream of numbers.
  *
  * RunningStat instances are accumulator-like objects that provide a set of
  * continuously-updated summary statistics for a stream of numbers, without
@@ -41,32 +37,29 @@ namespace Wikimedia;
  * stages without loss of fidelity.
  *
  * Based on a C++ implementation by John D. Cook:
- *  <http://www.johndcook.com/standard_deviation.html>
- *  <http://www.johndcook.com/skewness_kurtosis.html>
+ *
+ * - <http://www.johndcook.com/standard_deviation.html>
+ * - <http://www.johndcook.com/skewness_kurtosis.html>
  *
  * The in-line documentation for this class incorporates content from the
  * English Wikipedia articles "Variance", "Algorithms for calculating
  * variance", and "Standard deviation".
  */
 class RunningStat {
-
-	/** @var int Number of samples. */
+	/** Number of samples. */
 	public $n = 0;
-
-	/** @var float The first moment (or mean, or expected value). */
+	/** The first moment (or mean, or expected value). */
 	public $m1 = 0.0;
-
-	/** @var float The second central moment (or variance). */
+	/** The second central moment (or variance). */
 	public $m2 = 0.0;
-
-	/** @var float The least value in the set. */
+	/** The least value in the set. */
 	public $min = INF;
-
-	/** @var float The greatest value in the set. */
+	/** The greatest value in the set. */
 	public $max = -INF;
 
 	/**
 	 * Count the number of accumulated values.
+	 *
 	 * @return int
 	 */
 	public function getCount() {
@@ -75,6 +68,7 @@ class RunningStat {
 
 	/**
 	 * Add a number to the data set.
+	 *
 	 * @param int|float $x Value to add
 	 */
 	public function addObservation( $x ) {
