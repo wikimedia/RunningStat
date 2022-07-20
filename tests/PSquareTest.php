@@ -138,6 +138,28 @@ class PSquareTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals( 7.5, $ps->getValue() );
 	}
 
+	public function testCloneAndDeterminism() {
+		$ps1 = new PSquare( 0.5 );
+		$ps1->addObservation( 5 );
+		$ps1->addObservation( 10 );
+		$ps1->addObservation( 1 );
+		$this->assertEquals( 3, $ps1->getCount() );
+		$this->assertEquals( 5, $ps1->getValue() );
+
+		$ps2 = unserialize( serialize( $ps1 ) );
+		$this->assertEquals( 3, $ps2->getCount(), 'ps2 start count' );
+		$this->assertEquals( 5, $ps2->getValue(), 'ps2 start value' );
+
+		$ps1->addObservation( 20 );
+		$ps2->addObservation( 20 );
+
+		$this->assertEquals( 4, $ps1->getCount(), 'ps1 mod count' );
+		$this->assertEquals( 4, $ps2->getCount(), 'ps2 mod count' );
+
+		$this->assertEquals( 7.5, $ps1->getValue(), 'ps1 mod val' );
+		$this->assertEquals( 7.5, $ps2->getValue(), 'ps2 mod val' );
+	}
+
 	public function testPSquareAccuracy() {
 		// The numbers of customers affected in electrical blackouts
 		// in the United States between 1984 and 2002.

@@ -21,6 +21,8 @@
 
 namespace Wikimedia;
 
+use Serializable;
+
 /**
  * Represents a running, online estimate of a p-quantile for a series
  * of observations using the P-squared algorithm.
@@ -29,8 +31,7 @@ namespace Wikimedia;
  * Percentiles and Histograms without Storing Observations," Communications of
  * the ACM, October 1985 by R. Jain and I. Chlamtac.
  */
-class PSquare {
-
+class PSquare implements Serializable {
 	/**
 	 * Percentile to estimate.
 	 * @var float $p
@@ -38,31 +39,31 @@ class PSquare {
 	private $p;
 
 	/**
-	 * Height of each marker.
-	 * @var float[] $heights
-	 */
-	private $heights = [];
-
-	/**
 	 * Position of each marker.
 	 * @var int[] $positions
 	 */
-	private $positions = [];
+	private $positions;
 
 	/**
 	 * Desired position of each marker.
 	 * @var float[] $desired
 	 */
-	private $desired = [];
+	private $desired;
 
 	/** @var float[] $increments */
-	private $increments = [];
+	private $increments;
 
 	/**
 	 * Number of observations.
 	 * @var int $numObservations
 	 */
 	private $numObservations = 0;
+
+	/**
+	 * Height of each marker.
+	 * @var float[] $heights
+	 */
+	private $heights = [];
 
 	/**
 	 * @param float $p the percentile (defaults to 0.5, or median).
@@ -72,6 +73,47 @@ class PSquare {
 		$this->positions = [ 0, 1, 2, 3, 4 ];
 		$this->desired = [ 0, ( 2 * $p ), ( 4 * $p ), 2 + ( 2 * $p ), 4 ];
 		$this->increments = [ 0, ( $p / 2 ), $p, ( ( 1 + $p ) / 2 ), 1 ];
+	}
+
+	/**
+	 * Export state, e.g. for serializing and caching.
+	 *
+	 * @return array
+	 */
+	public function __serialize(): array {
+		return [
+			'percentile' => $this->p,
+			'positions' => $this->positions,
+			'desired' => $this->desired,
+			'increments' => $this->increments,
+			'numObservations' => $this->numObservations,
+			'heights' => $this->heights,
+		];
+	}
+
+	/**
+	 * @param array $data
+	 */
+	public function __unserialize( array $data ): void {
+		$this->p = $data['percentile'];
+		$this->positions = $data['positions'];
+		$this->desired = $data['desired'];
+		$this->increments = $data['increments'];
+		$this->numObservations = $data['numObservations'];
+		$this->heights = $data['heights'];
+	}
+
+	public function serialize() {
+		// TODO: Remove once PHP 7.4+ is required
+		return serialize( $this->__serialize() );
+	}
+
+	/**
+	 * @param string $serialized
+	 */
+	public function unserialize( $serialized ): void {
+		// TODO: Remove once PHP 7.4+ is required
+		$this->__unserialize( unserialize( $serialized ) );
 	}
 
 	/**
