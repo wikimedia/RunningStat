@@ -21,8 +21,6 @@
 
 namespace Wikimedia;
 
-use Serializable;
-
 /**
  * Represents a running, online estimate of a p-quantile for a series
  * of observations using the P-squared algorithm.
@@ -31,7 +29,7 @@ use Serializable;
  * Percentiles and Histograms without Storing Observations," Communications of
  * the ACM, October 1985 by R. Jain and I. Chlamtac.
  */
-class PSquare implements Serializable {
+class PSquare {
 	/**
 	 * Percentile to estimate.
 	 * @var float $p
@@ -101,19 +99,6 @@ class PSquare implements Serializable {
 		$this->increments = $data['increments'];
 		$this->numObservations = $data['numObservations'];
 		$this->heights = $data['heights'];
-	}
-
-	public function serialize() {
-		// TODO: Remove once PHP 7.4+ is required
-		return serialize( $this->__serialize() );
-	}
-
-	/**
-	 * @param string $serialized
-	 */
-	public function unserialize( $serialized ): void {
-		// TODO: Remove once PHP 7.4+ is required
-		$this->__unserialize( unserialize( $serialized ) );
 	}
 
 	/**

@@ -34,8 +34,8 @@ class RunningStatTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals( $rstat->min, min( $this->points ) );
 		$this->assertEquals( $rstat->max, max( $this->points ) );
 		$this->assertEquals( $rstat->getMean(), $mean );
-		$this->assertEquals( $rstat->getVariance(), $variance );
-		$this->assertEquals( $rstat->getStdDev(), $stddev );
+		$this->assertEqualsWithDelta( $rstat->getVariance(), $variance, 0.01 );
+		$this->assertEqualsWithDelta( $rstat->getStdDev(), $stddev, 0.01 );
 	}
 
 	/**
@@ -82,7 +82,7 @@ class RunningStatTest extends \PHPUnit\Framework\TestCase {
 		$first->merge( $second );
 
 		$this->assertCount( $first->getCount(), $this->points );
-		$this->assertEquals( $expected, $first );
+		$this->assertEqualsWithDelta( $expected, $first, 0.01 );
 	}
 
 	/**

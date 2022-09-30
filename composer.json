@@ -15,7 +15,7 @@
 		}
 	},
 	"require": {
-		"php": ">=7.2.0"
+		"php": ">=7.4.0"
 	},
 	"require-dev": {
 		"mediawiki/mediawiki-codesniffer": "39.0.0",
@@ -30,7 +30,7 @@
 	"scripts": {
 		"test": [
 			"parallel-lint . --exclude vendor",
-			"phpunit",
+			"@phpunit",
 			"covers-validator",
 			"@phpcs",
 			"phan --allow-polyfill-parser --long-progress-bar",
@@ -42,6 +42,7 @@
 			"phpcbf"
 		],
 		"phan": "phan -d . --long-progress-bar",
-		"phpcs": "phpcs -sp"
+		"phpcs": "phpcs -sp",
+		"phpunit":  "phpunit"
 	}
 }

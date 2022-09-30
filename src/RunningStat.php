@@ -78,7 +78,7 @@ class RunningStat {
 		$this->max = max( $this->max, $x );
 
 		$n1 = $this->n;
-		$this->n += 1;
+		$this->n++;
 		$delta = $x - $this->m1;
 		$delta_n = $delta / $this->n;
 		$this->m1 += $delta_n;
