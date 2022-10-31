@@ -1,4 +1,6 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
 use Wikimedia\PSquare;
 use Wikimedia\TestingAccessWrapper;
 
@@ -6,7 +8,7 @@ use Wikimedia\TestingAccessWrapper;
  * @covers Wikimedia\PSquare
  * @author Ori Livneh <ori@wikimedia.org>
  */
-class PSquareTest extends \PHPUnit\Framework\TestCase {
+class PSquareTest extends TestCase {
 
 	/**
 	 * Test that the PSquare class implements the P-square algorithm

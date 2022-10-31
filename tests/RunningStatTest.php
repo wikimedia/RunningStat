@@ -1,13 +1,16 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
 use Wikimedia\RunningStat;
 
 /**
  * @covers Wikimedia\RunningStat
  * @author Ori Livneh <ori@wikimedia.org>
  */
-class RunningStatTest extends \PHPUnit\Framework\TestCase {
+class RunningStatTest extends TestCase {
 
-	public $points = [
+	/** @var array */
+	private array $points = [
 		49.7168, 74.3804,  7.0115, 96.5769, 34.9458,
 		36.9947, 33.8926, 89.0774, 23.7745, 73.5154,
 		86.1322, 53.2124, 16.2046, 73.5130, 10.4209,
@@ -38,9 +41,6 @@ class RunningStatTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEqualsWithDelta( $rstat->getStdDev(), $stddev, 0.01 );
 	}
 
-	/**
-	 * @covers Wikimedia\RunningStat::getVariance
-	 */
 	public function testGetVariance() {
 		$rstat = new RunningStat();
 		$this->assertTrue( is_nan( $rstat->getVariance() ), 'Empty set' );
@@ -54,8 +54,6 @@ class RunningStatTest extends \PHPUnit\Framework\TestCase {
 	 * When one RunningStat instance is merged into another, the state of the
 	 * target RunningInstance should have the state that it would have had if
 	 * all the data had been accumulated by it alone.
-	 *
-	 * @covers Wikimedia\RunningStat::merge
 	 */
 	public function testMergeTwo() {
 		$expected = new RunningStat();
@@ -85,9 +83,6 @@ class RunningStatTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEqualsWithDelta( $expected, $first, 0.01 );
 	}
 
-	/**
-	 * @covers Wikimedia\RunningStat::merge
-	 */
 	public function testMergeOne() {
 		$expected = new RunningStat();
 		foreach ( $this->points as $point ) {
@@ -108,9 +103,6 @@ class RunningStatTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals( $expected, $first );
 	}
 
-	/**
-	 * @covers Wikimedia\RunningStat::merge
-	 */
 	public function testMergeEmpty() {
 		$expected = new RunningStat();
 
