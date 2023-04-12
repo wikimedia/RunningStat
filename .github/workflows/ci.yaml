@@ -1,0 +1,47 @@
+# yamllint disable rule:line-length
+# yamllint disable rule:braces
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  tests:
+    name: Testing with PHP ${{ matrix.php-version }} ${{ matrix.description }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php-version:
+          - '7.4'
+          - '8.0'
+          - '8.1'
+          - '8.2'
+        coverage: ['none']
+        include:
+          - description: 'with test coverage'
+            php-version: '8.2'
+            coverage: 'pcov'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          coverage: ${{ matrix.coverage }}
+          tools: composer:v2
+
+      - name: Install dependencies
+        run: |
+          composer update --prefer-dist --no-interaction --no-progress ${{ matrix.composer-flags }}
+
+      - name: Run tests
+        run: |
+          php vendor/bin/phpunit
