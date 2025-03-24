@@ -46,15 +46,15 @@ namespace Wikimedia;
  * variance", and "Standard deviation".
  */
 class RunningStat {
-	/** Number of samples. */
+	/** @var int Number of samples. */
 	public $n = 0;
-	/** The first moment (or mean, or expected value). */
+	/** @var float The first moment (or mean, or expected value). */
 	public $m1 = 0.0;
-	/** The second central moment (or variance). */
+	/** @var float The second central moment (or variance). */
 	public $m2 = 0.0;
-	/** The least value in the set. */
+	/** @var float The least value in the set. */
 	public $min = INF;
-	/** The greatest value in the set. */
+	/** @var float The greatest value in the set. */
 	public $max = -INF;
 
 	/**
