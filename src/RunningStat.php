@@ -1,4 +1,6 @@
 <?php
+declare( strict_types = 1 );
+
 /**
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -47,22 +49,20 @@ namespace Wikimedia;
  */
 class RunningStat {
 	/** @var int Number of samples. */
-	public $n = 0;
+	public int $n = 0;
 	/** @var float The first moment (or mean, or expected value). */
-	public $m1 = 0.0;
+	public float $m1 = 0.0;
 	/** @var float The second central moment (or variance). */
-	public $m2 = 0.0;
+	public float $m2 = 0.0;
 	/** @var float The least value in the set. */
-	public $min = INF;
+	public float $min = INF;
 	/** @var float The greatest value in the set. */
-	public $max = -INF;
+	public float $max = -INF;
 
 	/**
 	 * Count the number of accumulated values.
-	 *
-	 * @return int
 	 */
-	public function getCount() {
+	public function getCount(): int {
 		return $this->n;
 	}
 
@@ -71,7 +71,7 @@ class RunningStat {
 	 *
 	 * @param int|float $x Value to add
 	 */
-	public function addObservation( $x ) {
+	public function addObservation( int|float $x ): void {
 		$x = (float)$x;
 
 		$this->min = min( $this->min, $x );
@@ -90,10 +90,8 @@ class RunningStat {
 	 *
 	 * The arithmetic mean is the sum of all measurements divided by the number
 	 * of observations in the data set.
-	 *
-	 * @return float
 	 */
-	public function getMean() {
+	public function getMean(): float {
 		return $this->m1;
 	}
 
@@ -107,7 +105,7 @@ class RunningStat {
 	 *
 	 * @return float Estimated variance
 	 */
-	public function getVariance() {
+	public function getVariance(): float {
 		if ( $this->n === 0 ) {
 			// The variance of the empty set is undefined.
 			return NAN;
@@ -128,7 +126,7 @@ class RunningStat {
 	 *
 	 * @return float Estimated standard deviation
 	 */
-	public function getStdDev() {
+	public function getStdDev(): float {
 		return sqrt( $this->getVariance() );
 	}
 
@@ -140,7 +138,7 @@ class RunningStat {
 	 *
 	 * @param RunningStat $other RunningStat instance to merge into this one
 	 */
-	public function merge( RunningStat $other ) {
+	public function merge( RunningStat $other ): void {
 		// If the other RunningStat is empty, there's nothing to do.
 		if ( $other->n === 0 ) {
 			return;

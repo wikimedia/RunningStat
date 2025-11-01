@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ruleset>
 	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki" />
+	<rule ref="Generic.PHP.RequireStrictTypes" />
 
 	<!-- RedundantVarName is currently too sensitive, incompatible with default Doxygen. -->
 	<rule ref="MediaWiki.Commenting.RedundantVarName.Found">

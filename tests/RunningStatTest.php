@@ -1,4 +1,5 @@
 <?php
+declare( strict_types = 1 );
 
 use PHPUnit\Framework\TestCase;
 use Wikimedia\RunningStat;
@@ -9,8 +10,7 @@ use Wikimedia\RunningStat;
  */
 class RunningStatTest extends TestCase {
 
-	/** @var array */
-	private array $points = [
+	private const POINTS = [
 		49.7168, 74.3804, 7.0115, 96.5769, 34.9458,
 		36.9947, 33.8926, 89.0774, 23.7745, 73.5154,
 		86.1322, 53.2124, 16.2046, 73.5130, 10.4209,
@@ -23,19 +23,19 @@ class RunningStatTest extends TestCase {
 	 */
 	public function testRunningStatAccuracy() {
 		$rstat = new RunningStat();
-		foreach ( $this->points as $point ) {
+		foreach ( self::POINTS as $point ) {
 			$rstat->addObservation( $point );
 		}
 
-		$mean = array_sum( $this->points ) / count( $this->points );
+		$mean = array_sum( self::POINTS ) / count( self::POINTS );
 		$variance = array_sum( array_map( static function ( $x ) use ( $mean ) {
 			return pow( $mean - $x, 2 );
-		}, $this->points ) ) / ( $rstat->getCount() - 1 );
+		}, self::POINTS ) ) / ( $rstat->getCount() - 1 );
 		$stddev = sqrt( $variance );
 
-		$this->assertCount( $rstat->getCount(), $this->points );
-		$this->assertEquals( $rstat->min, min( $this->points ) );
-		$this->assertEquals( $rstat->max, max( $this->points ) );
+		$this->assertCount( $rstat->getCount(), self::POINTS );
+		$this->assertEquals( $rstat->min, min( self::POINTS ) );
+		$this->assertEquals( $rstat->max, max( self::POINTS ) );
 		$this->assertEquals( $rstat->getMean(), $mean );
 		$this->assertEqualsWithDelta( $rstat->getVariance(), $variance, 0.01 );
 		$this->assertEqualsWithDelta( $rstat->getStdDev(), $stddev, 0.01 );
@@ -57,12 +57,12 @@ class RunningStatTest extends TestCase {
 	 */
 	public function testMergeTwo() {
 		$expected = new RunningStat();
-		foreach ( $this->points as $point ) {
+		foreach ( self::POINTS as $point ) {
 			$expected->addObservation( $point );
 		}
 
 		// Split the data into two sets
-		$sets = array_chunk( $this->points, floor( count( $this->points ) / 2 ) );
+		$sets = array_chunk( self::POINTS, (int)floor( count( self::POINTS ) / 2 ) );
 
 		// Accumulate the first half into one RunningStat object
 		$first = new RunningStat();
@@ -79,13 +79,13 @@ class RunningStatTest extends TestCase {
 		// Merge the second RunningStat object into the first
 		$first->merge( $second );
 
-		$this->assertCount( $first->getCount(), $this->points );
+		$this->assertCount( $first->getCount(), self::POINTS );
 		$this->assertEqualsWithDelta( $expected, $first, 0.01 );
 	}
 
 	public function testMergeOne() {
 		$expected = new RunningStat();
-		foreach ( $this->points as $point ) {
+		foreach ( self::POINTS as $point ) {
 			$expected->addObservation( $point );
 		}
 
@@ -93,13 +93,13 @@ class RunningStatTest extends TestCase {
 		$first = new RunningStat();
 
 		$second = new RunningStat();
-		foreach ( $this->points as $point ) {
+		foreach ( self::POINTS as $point ) {
 			$second->addObservation( $point );
 		}
 
 		$first->merge( $second );
 
-		$this->assertCount( $first->getCount(), $this->points );
+		$this->assertCount( $first->getCount(), self::POINTS );
 		$this->assertEquals( $expected, $first );
 	}
 

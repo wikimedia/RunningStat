@@ -1,4 +1,6 @@
 <?php
+declare( strict_types = 1 );
+
 /**
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,39 +36,39 @@ class PSquare {
 	 * Percentile to estimate.
 	 * @var float $p
 	 */
-	private $p;
+	private float $p;
 
 	/**
 	 * Position of each marker.
 	 * @var int[] $positions
 	 */
-	private $positions;
+	private array $positions;
 
 	/**
 	 * Desired position of each marker.
 	 * @var float[] $desired
 	 */
-	private $desired;
+	private array $desired;
 
 	/** @var float[] $increments */
-	private $increments;
+	private array $increments;
 
 	/**
 	 * Number of observations.
 	 * @var int $numObservations
 	 */
-	private $numObservations = 0;
+	private int $numObservations = 0;
 
 	/**
 	 * Height of each marker.
 	 * @var float[] $heights
 	 */
-	private $heights = [];
+	private array $heights = [];
 
 	/**
 	 * @param float $p the percentile (defaults to 0.5, or median).
 	 */
-	public function __construct( $p = 0.5 ) {
+	public function __construct( float $p = 0.5 ) {
 		$this->p = $p;
 		$this->positions = [ 0, 1, 2, 3, 4 ];
 		$this->desired = [ 0, ( 2 * $p ), ( 4 * $p ), 2 + ( 2 * $p ), 4 ];
@@ -89,9 +91,6 @@ class PSquare {
 		];
 	}
 
-	/**
-	 * @param array $data
-	 */
 	public function __unserialize( array $data ): void {
 		$this->p = $data['percentile'];
 		$this->positions = $data['positions'];
@@ -103,10 +102,8 @@ class PSquare {
 
 	/**
 	 * Get the total number of accumulated observations.
-	 *
-	 * @return int
 	 */
-	public function getCount() {
+	public function getCount(): int {
 		return $this->numObservations;
 	}
 
@@ -115,7 +112,7 @@ class PSquare {
 	 *
 	 * @param int|float $x Value to add
 	 */
-	public function addObservation( $x ) {
+	public function addObservation( int|float $x ): void {
 		$this->numObservations++;
 
 		if ( $this->numObservations <= 5 ) {
@@ -183,7 +180,7 @@ class PSquare {
 	 * @param int $d always -1 or 1
 	 * @return float ideal height of marker
 	 */
-	private function computeParabolic( $i, $d ) {
+	private function computeParabolic( int $i, int $d ): float {
 		$q     = $this->heights[$i];
 		$qPrev = $this->heights[$i - 1];
 		$qNext = $this->heights[$i + 1];
@@ -208,7 +205,7 @@ class PSquare {
 	 * @param int $d always -1 or 1
 	 * @return float ideal height of marker
 	 */
-	private function computeLinear( $i, $d ) {
+	private function computeLinear( int $i, int $d ): float {
 		$q = $this->heights[$i];
 		$n = $this->positions[$i];
 		return ( $q + $d *
@@ -219,10 +216,8 @@ class PSquare {
 
 	/**
 	 * Get the estimated p-quantile value.
-	 *
-	 * @return float
 	 */
-	public function getValue() {
+	public function getValue(): float {
 		// If we have five samples or fewer, fall back to a naive method.
 		if ( $this->getCount() <= 5 ) {
 			sort( $this->heights );
