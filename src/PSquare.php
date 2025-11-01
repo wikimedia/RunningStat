@@ -227,10 +227,11 @@ class PSquare {
 		if ( $this->getCount() <= 5 ) {
 			sort( $this->heights );
 			$i = $this->p * count( $this->heights );
+			$index = (int)$i;
 			if ( $i === floor( $i ) ) {
-				return ( $this->heights[$i - 1] + $this->heights[$i] ) / 2;
+				return ( $this->heights[$index - 1] + $this->heights[$index] ) / 2;
 			} else {
-				return $this->heights[floor( $i )];
+				return $this->heights[$index];
 			}
 		}
 
