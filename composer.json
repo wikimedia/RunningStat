@@ -36,6 +36,7 @@
 			"phan --allow-polyfill-parser --long-progress-bar",
 			"minus-x check ."
 		],
+		"changelog": "git log HEAD --format=\"* %s (%aN)\" --no-merges --not --tags | sort | grep -vE \"^\\* (build|docs?|tests?):\"",
 		"cover": "phpunit --coverage-html coverage",
 		"fix": [
 			"minus-x fix .",
